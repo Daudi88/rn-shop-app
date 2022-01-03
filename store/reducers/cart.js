@@ -51,7 +51,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         items: updatedCartItems,
-        totalAmount: state.totalAmount - selectedCartItem.productPrice,
+        totalAmount: Math.abs(
+          state.totalAmount - selectedCartItem.productPrice
+        ),
       };
     default:
       return state;
