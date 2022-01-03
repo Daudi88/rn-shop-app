@@ -7,7 +7,7 @@ import {
   Button,
   ScrollView,
 } from 'react-native';
-import Colors from '../../constants/colors';
+import Colors from '../../constants/Colors';
 import { useDispatch } from 'react-redux';
 import * as cartActions from '../../store/actions/cart';
 
