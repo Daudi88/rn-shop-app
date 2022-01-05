@@ -80,10 +80,11 @@ const AuthScreen = props => {
     setIsLoading(true);
     try {
       await dispatch(action);
+      props.navigation.navigate('Shop');
     } catch (err) {
       setError(err.message);
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
@@ -116,7 +117,7 @@ const AuthScreen = props => {
             <Input
               id='email'
               label='E-Mail'
-              keybordType='email-address'
+              keyboardType='email-address'
               required
               email
               autoCapitalize='none'
