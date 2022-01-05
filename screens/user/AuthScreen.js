@@ -1,4 +1,10 @@
-import React, { useState, useReducer, useCallback, useEffect } from 'react';
+import React, {
+  useState,
+  useReducer,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react';
 import {
   Button,
   KeyboardAvoidingView,
@@ -49,6 +55,7 @@ const AuthScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
+  const ref_to_input2 = useRef();
   const dispatch = useDispatch();
 
   const [formState, dispatchFormState] = useReducer(formReducer, {
@@ -124,6 +131,9 @@ const AuthScreen = props => {
               errorText='Please enter a valid email address.'
               onInputChange={inputChangeHandler}
               initialValue=''
+              returnKeyType='next'
+              onSubmitEditing={() => ref_to_input2.current.focus()}
+              blurOnSubmit={false}
             />
             <Input
               id='password'
@@ -136,6 +146,10 @@ const AuthScreen = props => {
               errorText='Please enter a valid password.'
               onInputChange={inputChangeHandler}
               initialValue=''
+              returnKeyType='done'
+              blurOnSubmit
+              onSubmitEditing={authHandler}
+              refInner={ref_to_input2}
             />
             <View style={styles.buttonContainer}>
               {isLoading ? (

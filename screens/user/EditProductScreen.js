@@ -1,4 +1,10 @@
-import React, { useCallback, useEffect, useReducer, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -46,6 +52,9 @@ const formReducer = (state, action) => {
 const EditProductScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+  const ref_to_input2 = useRef();
+  const ref_to_input3 = useRef();
+  const ref_to_input4 = useRef();
   const product = props.navigation.getParam('product');
   const dispatch = useDispatch();
   const prodId = product?.id;
@@ -154,6 +163,8 @@ const EditProductScreen = props => {
             initialValue={product ? product.title : ''}
             initiallyValid={!!product}
             required
+            onSubmitEditing={() => ref_to_input2.current.focus()}
+            blurOnSubmit={false}
           />
           <Input
             id='imageUrl'
@@ -164,6 +175,9 @@ const EditProductScreen = props => {
             initialValue={product ? product.imageUrl : ''}
             initiallyValid={!!product}
             required
+            refInner={ref_to_input2}
+            onSubmitEditing={() => ref_to_input3.current.focus()}
+            blurOnSubmit={false}
           />
           {!product && (
             <Input
@@ -175,6 +189,9 @@ const EditProductScreen = props => {
               onInputChange={inputChangeHandler}
               required
               min={0.1}
+              refInner={ref_to_input3}
+              onSubmitEditing={() => ref_to_input4.current.focus()}
+              blurOnSubmit={false}
             />
           )}
           <Input
@@ -190,6 +207,10 @@ const EditProductScreen = props => {
             initiallyValid={!!product}
             required
             minLength={5}
+            refInner={ref_to_input4}
+            onSubmitEditing={submitHandler}
+            returnKeyType='done'
+            blurOnSubmit
           />
         </View>
       </ScrollView>

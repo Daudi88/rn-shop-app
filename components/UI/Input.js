@@ -11,6 +11,7 @@ const inputReducer = (state, action) => {
         ...state,
         value: action.value,
         isValid: action.isValid,
+        touched: true,
         inFocus: true,
       };
     case INPUT_BLUR:
@@ -76,6 +77,7 @@ const Input = props => {
       <Text style={styles.label}>{props.label}</Text>
       <TextInput
         {...props}
+        ref={props.refInner}
         style={styles.input}
         value={inputState.value}
         onChangeText={textChangeHandler}
