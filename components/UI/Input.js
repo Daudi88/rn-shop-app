@@ -11,12 +11,13 @@ const inputReducer = (state, action) => {
         ...state,
         value: action.value,
         isValid: action.isValid,
-        touched: true,
+        inFocus: true,
       };
     case INPUT_BLUR:
       return {
         ...state,
         touched: true,
+        inFocus: false,
       };
     default:
       return state;
@@ -28,6 +29,7 @@ const Input = props => {
     value: props.initialValue ? props.initialValue : '',
     isValid: props.initiallyValid,
     touched: false,
+    inFocus: false,
   });
 
   const { onInputChange, id } = props;
@@ -79,7 +81,7 @@ const Input = props => {
         onChangeText={textChangeHandler}
         onBlur={lostFocusHandler}
       />
-      {inputState.touched && !inputState.isValid && (
+      {inputState.touched && !inputState.inFocus && !inputState.isValid && (
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>{props.errorText}</Text>
         </View>
