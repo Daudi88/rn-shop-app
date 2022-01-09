@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
   StyleSheet,
   View,
   Text,
-} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../../components/UI/HeaderButton';
-import OrderItem from '../../components/shop/OrderItem';
-import * as orderActions from '../../store/actions/orders';
-import Colors from '../../constants/Colors';
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../../components/UI/HeaderButton";
+import OrderItem from "../../components/shop/OrderItem";
+import * as orderActions from "../../store/actions/orders";
+import Colors from "../../constants/Colors";
 
 const OrdersScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
@@ -28,14 +28,14 @@ const OrdersScreen = props => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size='large' color={Colors.primary} />
+        <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
 
   if (orders.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>No order found, maybe start ordering some products?</Text>
       </View>
     );
@@ -56,14 +56,14 @@ const OrdersScreen = props => {
   );
 };
 
-OrdersScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
-    headerTitle: 'Your Orders',
+    headerTitle: "Your Orders",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title='Menu'
-          iconName='menu'
+          title="Menu"
+          iconName="menu"
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
@@ -76,8 +76,8 @@ OrdersScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from "react";
 import {
   FlatList,
   Button,
@@ -6,14 +6,14 @@ import {
   ActivityIndicator,
   StyleSheet,
   Text,
-} from 'react-native';
-import { useSelector, useDispatch } from 'react-redux';
-import ProductItem from '../../components/shop/ProductItem';
-import * as cartActions from '../../store/actions/cart';
-import * as productActions from '../../store/actions/products';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import HeaderButton from '../../components/UI/HeaderButton';
-import Colors from '../../constants/Colors';
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import ProductItem from "../../components/shop/ProductItem";
+import * as cartActions from "../../store/actions/cart";
+import * as productActions from "../../store/actions/products";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import HeaderButton from "../../components/UI/HeaderButton";
+import Colors from "../../constants/Colors";
 
 const ProductsOverviewScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
@@ -34,12 +34,9 @@ const ProductsOverviewScreen = props => {
   }, [dispatch]);
 
   useEffect(() => {
-    const willFocusSub = props.navigation.addListener(
-      'willFocus',
-      loadProducts
-    );
+    const unsubscribe = props.navigation.addListener("focus", loadProducts);
     return () => {
-      willFocusSub.remove();
+      unsubscribe();
     };
   }, [loadProducts]);
 
@@ -51,7 +48,7 @@ const ProductsOverviewScreen = props => {
   }, [loadProducts]);
 
   const selectItemHandler = selectedProduct => {
-    props.navigation.navigate('ProductDetail', {
+    props.navigation.navigate("ProductDetail", {
       product: selectedProduct,
     });
   };
@@ -61,7 +58,7 @@ const ProductsOverviewScreen = props => {
       <View style={styles.centered}>
         <Text>An error occurred!</Text>
         <Button
-          title='Try again'
+          title="Try again"
           onPress={loadProducts}
           color={Colors.primary}
         />
@@ -72,7 +69,7 @@ const ProductsOverviewScreen = props => {
   if (isLoading) {
     return (
       <View style={styles.centered}>
-        <ActivityIndicator size='large' color={Colors.primary} />
+        <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
@@ -100,12 +97,12 @@ const ProductsOverviewScreen = props => {
         >
           <Button
             color={Colors.primary}
-            title='View Details'
+            title="View Details"
             onPress={() => selectItemHandler(itemData.item)}
           />
           <Button
             color={Colors.primary}
-            title='To Cart'
+            title="To Cart"
             onPress={() => {
               dispatch(cartActions.addToCart(itemData.item));
             }}
@@ -116,14 +113,15 @@ const ProductsOverviewScreen = props => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
-    headerTitle: 'All Products',
+    headerTitle: "All Products",
+    headerTitleAlign: "center",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title='Menu'
-          iconName='menu'
+          title="Menu"
+          iconName="menu"
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
@@ -133,10 +131,10 @@ ProductsOverviewScreen.navigationOptions = navData => {
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title='Cart'
-          iconName='cart'
+          title="Cart"
+          iconName="cart"
           onPress={() => {
-            navData.navigation.navigate('Cart');
+            navData.navigation.navigate("Cart");
           }}
         />
       </HeaderButtons>
@@ -147,8 +145,8 @@ ProductsOverviewScreen.navigationOptions = navData => {
 const styles = StyleSheet.create({
   centered: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

@@ -1,29 +1,29 @@
-import React from 'react';
-import { FlatList, Button, Alert, Text, View } from 'react-native';
-import { HeaderButtons, Item } from 'react-navigation-header-buttons';
-import { useSelector, useDispatch } from 'react-redux';
+import React from "react";
+import { FlatList, Button, Alert, Text, View } from "react-native";
+import { HeaderButtons, Item } from "react-navigation-header-buttons";
+import { useSelector, useDispatch } from "react-redux";
 
-import ProductItem from '../../components/shop/ProductItem';
-import HeaderButton from '../../components/UI/HeaderButton';
-import Colors from '../../constants/Colors';
-import * as productActions from '../../store/actions/products';
+import ProductItem from "../../components/shop/ProductItem";
+import HeaderButton from "../../components/UI/HeaderButton";
+import Colors from "../../constants/Colors";
+import * as productActions from "../../store/actions/products";
 
 const UserProductsScreen = props => {
   const dispatch = useDispatch();
   const userProducts = useSelector(state => state.products.userProducts);
 
   const editProductHandler = selectedProduct => {
-    props.navigation.navigate('EditProduct', {
+    props.navigation.navigate("EditProduct", {
       product: selectedProduct,
     });
   };
 
   const deleteHandler = id => {
-    Alert.alert('Are you sure?', 'Do you really want to delete this item?', [
-      { text: 'No', style: 'default' },
+    Alert.alert("Are you sure?", "Do you really want to delete this item?", [
+      { text: "No", style: "default" },
       {
-        text: 'Yes',
-        style: 'destructive',
+        text: "Yes",
+        style: "destructive",
         onPress: () => {
           dispatch(productActions.deleteProduct(id));
         },
@@ -33,7 +33,7 @@ const UserProductsScreen = props => {
 
   if (userProducts.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>No products found, maybe start adding some?</Text>
       </View>
     );
@@ -52,12 +52,12 @@ const UserProductsScreen = props => {
         >
           <Button
             color={Colors.primary}
-            title='Edit'
+            title="Edit"
             onPress={() => editProductHandler(itemData.item)}
           />
           <Button
             color={Colors.primary}
-            title='Delete'
+            title="Delete"
             onPress={() => deleteHandler(itemData.item.id)}
           />
         </ProductItem>
@@ -66,14 +66,14 @@ const UserProductsScreen = props => {
   );
 };
 
-UserProductsScreen.navigationOptions = navData => {
+export const screenOptions = navData => {
   return {
-    headerTitle: 'Your Products',
+    headerTitle: "Your Products",
     headerLeft: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title='menu'
-          iconName='menu'
+          title="menu"
+          iconName="menu"
           onPress={() => {
             navData.navigation.toggleDrawer();
           }}
@@ -83,10 +83,10 @@ UserProductsScreen.navigationOptions = navData => {
     headerRight: () => (
       <HeaderButtons HeaderButtonComponent={HeaderButton}>
         <Item
-          title='Add'
-          iconName='add-circle'
+          title="Add"
+          iconName="add-circle"
           onPress={() => {
-            navData.navigation.navigate('EditProduct');
+            navData.navigation.navigate("EditProduct");
           }}
         />
       </HeaderButtons>

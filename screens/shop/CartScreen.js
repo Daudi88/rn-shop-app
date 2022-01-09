@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -6,13 +6,13 @@ import {
   StyleSheet,
   Button,
   ActivityIndicator,
-} from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import Colors from '../../constants/Colors';
-import CartItem from '../../components/shop/CartItem';
-import * as cartActions from '../../store/actions/cart';
-import * as ordersActions from '../../store/actions/orders';
-import Card from '../../components/UI/Card';
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import Colors from "../../constants/Colors";
+import CartItem from "../../components/shop/CartItem";
+import * as cartActions from "../../store/actions/cart";
+import * as ordersActions from "../../store/actions/orders";
+import Card from "../../components/UI/Card";
 
 const CartScreen = props => {
   const [isLoading, setIsLoading] = useState(false);
@@ -27,6 +27,7 @@ const CartScreen = props => {
         productPrice: state.cart.items[key].productPrice,
         quantity: state.cart.items[key].quantity,
         sum: state.cart.items[key].sum,
+        productPushToken: state.cart.items[key].pushToken,
       });
     }
 
@@ -47,15 +48,15 @@ const CartScreen = props => {
     <View style={styles.screen}>
       <Card style={styles.summary}>
         <Text style={styles.summaryText}>
-          Total:{' '}
+          Total:{" "}
           <Text style={styles.amount}>${cartTotalAmount.toFixed(2)}</Text>
         </Text>
         {isLoading ? (
-          <ActivityIndicator size='small' color={Colors.primary} />
+          <ActivityIndicator size="small" color={Colors.primary} />
         ) : (
           <Button
             color={Colors.accent}
-            title='Order Now'
+            title="Order Now"
             onPress={sendOrderHandler}
             disabled={cartItems.length === 0}
           />
@@ -80,8 +81,8 @@ const CartScreen = props => {
   );
 };
 
-CartScreen.navigationOptions = {
-  headerTitle: 'Your Cart',
+export const screenOptions = {
+  headerTitle: "Your Cart",
 };
 
 const styles = StyleSheet.create({
@@ -89,14 +90,14 @@ const styles = StyleSheet.create({
     margin: 20,
   },
   summary: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginBottom: 20,
     padding: 10,
   },
   summaryText: {
-    fontFamily: 'open-sans-bold',
+    fontFamily: "open-sans-bold",
     fontSize: 18,
   },
   amount: {

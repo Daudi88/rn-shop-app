@@ -1,6 +1,6 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 
 const CartItem = props => {
   return (
@@ -16,7 +16,7 @@ const CartItem = props => {
             onPress={props.onRemove}
             style={styles.deleteButton}
           >
-            <Ionicons name='trash' size={23} color='red' />
+            <Ionicons name="trash" size={23} color="red" />
           </TouchableOpacity>
         )}
       </View>
@@ -27,22 +27,22 @@ const CartItem = props => {
 const styles = StyleSheet.create({
   cartItem: {
     padding: 10,
-    backgroundColor: 'white',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginHorizontal: 20,
   },
   itemData: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   quantity: {
-    fontFamily: 'open-sans',
-    color: '#888',
+    fontFamily: "open-sans",
+    color: "#888",
     fontSize: 16,
   },
   mainText: {
-    fontFamily: 'open-sans-bold',
+    fontFamily: "open-sans-bold",
     fontSize: 16,
   },
   deleteButton: {

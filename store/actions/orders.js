@@ -1,7 +1,7 @@
-import Order from '../../models/order';
+import Order from "../../models/order";
 
-export const ADD_ORDER = 'ADD_ORDER';
-export const SET_ORDERS = 'SET_ORDERS';
+export const ADD_ORDER = "ADD_ORDER";
+export const SET_ORDERS = "SET_ORDERS";
 
 export const fetchOrders = () => {
   return async (dispatch, getState) => {
@@ -12,7 +12,7 @@ export const fetchOrders = () => {
       );
 
       if (!response.ok) {
-        throw new Error('Something went wrong!');
+        throw new Error("Something went wrong!");
       }
 
       const resData = await response.json();
@@ -43,9 +43,9 @@ export const addOrder = (cartItems, totalAmount) => {
     const response = await fetch(
       `https://rn-shop-app-9fed9-default-rtdb.europe-west1.firebasedatabase.app/orders/${userId}.json?auth=${token}`,
       {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           cartItems,
@@ -56,7 +56,7 @@ export const addOrder = (cartItems, totalAmount) => {
     );
 
     if (!response.ok) {
-      throw new Error('Something went wrong!');
+      throw new Error("Something went wrong!");
     }
 
     const resData = await response.json();
@@ -70,5 +70,23 @@ export const addOrder = (cartItems, totalAmount) => {
         date: date,
       },
     });
+
+    for (const cartItem of cartItems) {
+      const pushToken = cartItem.productPushToken;
+
+      fetch("https://exp.host/--/api/v2/push/send", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Accept-Encoding": "gzip, deflate",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          to: pushToken,
+          title: "Order was placed!",
+          body: cartItem.productTitle,
+        }),
+      });
+    }
   };
 };
